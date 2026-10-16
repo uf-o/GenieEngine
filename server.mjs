@@ -22,9 +22,9 @@ function sendJson(res, status, body) {
 }
 
 async function generateWithGemini(prompt, history = []) {
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.GENIEENGINE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    const error = new Error("GEMINI_API_KEY is not configured. Add it in the Google AI Studio Secrets panel.");
+    const error = new Error("GENIEENGINE_GEMINI_API_KEY is not configured. Add it in the Google AI Studio Secrets panel.");
     error.status = 503;
     throw error;
   }
@@ -97,7 +97,7 @@ const vite = isProduction ? null : await createViteServer({
 
 const server = createServer(async (req, res) => {
   if (req.method === "GET" && req.url === "/api/health") {
-    return sendJson(res, 200, { ok: true, app: "GenieEngine Web", geminiConfigured: Boolean(process.env.GEMINI_API_KEY) });
+    return sendJson(res, 200, { ok: true, app: "GenieEngine Web", geminiConfigured: Boolean(process.env.GENIEENGINE_GEMINI_API_KEY || process.env.GEMINI_API_KEY) });
   }
 
   if (req.method === "POST" && req.url === "/api/generate") {

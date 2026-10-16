@@ -6,7 +6,7 @@ This repository now has a browser-based companion edition intended for Google AI
 
 - Node.js 20 or newer
 - `npm install`
-- Add `GEMINI_API_KEY` to the server environment
+- Add `GENIEENGINE_GEMINI_API_KEY` to the server environment (the app also supports `GEMINI_API_KEY` as a fallback)
 - `npm run dev`
 
 The web app uses React + Vite. `server.mjs` serves the app and exposes a server-side `POST /api/generate` endpoint. The Gemini key is read only from the server environment and is never sent to the browser.
@@ -16,7 +16,7 @@ The web app uses React + Vite. `server.mjs` serves the app and exposes a server-
 1. Open Google AI Studio and choose **Build**.
 2. Use **Add files (+) → Import from GitHub** and select `uf-o/GenieEngine`, branch `google-ai-studio`.
 3. If prompted, ask the Build agent to preserve the existing React/Vite entry point and run the app with `npm run dev`.
-4. Add `GEMINI_API_KEY` in the server-side Secrets panel if AI Studio has not injected it automatically.
+4. Add `GENIEENGINE_GEMINI_API_KEY` in the server-side Secrets panel if AI Studio has not injected it automatically. The app falls back to `GEMINI_API_KEY` if the new variable is absent.
 5. Test the chat, generate a self-contained HTML prototype, use Preview/Code, and export the prototype HTML.
 6. When the preview is working, use **Publish** in AI Studio to deploy to Cloud Run.
 
