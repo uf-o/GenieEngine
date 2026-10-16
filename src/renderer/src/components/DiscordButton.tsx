@@ -10,7 +10,7 @@ const DISCORD_INVITE_URL = 'https://discord.gg/BC8fF2nr4y'
  */
 export function DiscordButton(): React.JSX.Element {
   return (
-    <a className="btn btn-sm btn-discord" href={DISCORD_INVITE_URL}>
+    <a className="btn btn-sm btn-discord" href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer">
       <img src={discordMark} alt="" className="discord-mark" />
       Join Discord
     </a>

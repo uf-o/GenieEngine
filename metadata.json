@@ -1,0 +1,8 @@
+{
+  "name": "GenieEngine",
+  "description": "AI-powered game engine web interface — build and explore games with AI assistance, ECS architecture, and interactive simulation.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

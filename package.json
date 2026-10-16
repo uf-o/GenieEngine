@@ -7,21 +7,12 @@
   "author": "Jared Zhao",
   "license": "GPL-3.0-or-later",
   "scripts": {
-    "postinstall": "node scripts/fetch-vendor.mjs && node scripts/build-native.mjs",
-    "setup": "node scripts/fetch-vendor.mjs && node scripts/build-native.mjs",
-    "dev": "electron-vite dev",
-    "build": "electron-vite build",
-    "start": "electron-vite preview",
-    "dist": "electron-vite build && electron-builder",
-    "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
-    "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
-    "typecheck": "npm run typecheck:node && npm run typecheck:web"
+    "dev": "vite --host 0.0.0.0 --port 3000",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 3000"
   },
   "dependencies": {
     "dompurify": "^3.4.11",
-    "dugite": "^3.0.0",
-    "itchio-downloader": "^1.2.0",
-    "koffi": "^3.1.2",
     "marked": "^18.0.5"
   },
   "devDependencies": {
@@ -29,98 +20,9 @@
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
-    "electron": "^33.3.0",
-    "electron-builder": "^25.1.8",
-    "electron-vite": "^3.1.0",
-    "node-gyp": "^11.5.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "typescript": "^5.7.2",
     "vite": "^6.1.0"
-  },
-  "build": {
-    "appId": "ai.genieengine.desktop",
-    "productName": "GenieEngine",
-    "directories": {
-      "output": "dist"
-    },
-    "afterAllArtifactBuild": "scripts/set-dmg-icon.js",
-    "files": [
-      "!src/**",
-      "!scripts/**",
-      "!vendor/**",
-      "!dist/**",
-      "!*.md",
-      "!tsconfig*.json",
-      "!electron.vite.config.ts",
-      "!CLAUDE.md",
-      "!native/**",
-      "!node_modules/puppeteer/**",
-      "!node_modules/puppeteer-core/**",
-      "!node_modules/@puppeteer/**",
-      "!node_modules/chromium-bidi/**",
-      "!node_modules/devtools-protocol/**",
-      "out/**",
-      "native/layerhost/build/Release/*.node",
-      "resources/**"
-    ],
-    "asarUnpack": [
-      "node_modules/dugite/**",
-      "node_modules/koffi/**",
-      "node_modules/@koromix/**",
-      "native/layerhost/build/Release/*.node",
-      "resources/**"
-    ],
-    "mac": {
-      "identity": null,
-      "target": [
-        "dmg",
-        "zip"
-      ],
-      "extraResources": [
-        {
-          "from": "vendor/godot/darwin",
-          "to": "vendor/godot/darwin"
-        },
-        {
-          "from": "vendor/opencode/darwin",
-          "to": "vendor/opencode/darwin"
-        }
-      ]
-    },
-    "win": {
-      "target": [
-        "nsis"
-      ],
-      "extraResources": [
-        {
-          "from": "vendor/godot/win32",
-          "to": "vendor/godot/win32"
-        },
-        {
-          "from": "vendor/opencode/win32",
-          "to": "vendor/opencode/win32"
-        },
-        {
-          "from": "vendor/koffi/win32",
-          "to": "koffi"
-        }
-      ]
-    },
-    "linux": {
-      "target": [
-        "AppImage"
-      ],
-      "extraResources": [
-        {
-          "from": "vendor/godot/linux",
-          "to": "vendor/godot/linux"
-        },
-        {
-          "from": "vendor/opencode/linux",
-          "to": "vendor/opencode/linux"
-        }
-      ]
-    }
   }
 }
