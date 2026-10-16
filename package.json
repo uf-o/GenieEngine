@@ -7,8 +7,8 @@
   "author": "Jared Zhao",
   "license": "GPL-3.0-or-later",
   "scripts": {
-    "postinstall": "node scripts/fetch-vendor.mjs && node scripts/build-native.mjs",
-    "setup": "node scripts/fetch-vendor.mjs && node scripts/build-native.mjs",
+    "postinstall": "node -e \"console.log('Web edition ready. For native desktop dependencies, run npm run desktop:setup in a desktop environment.')\"",
+    "desktop:setup": "node scripts/fetch-vendor.mjs && node scripts/build-native.mjs",
     "dev": "node server.mjs",
     "build": "vite build",
     "start": "node server.mjs",
