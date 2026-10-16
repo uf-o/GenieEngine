@@ -26,4 +26,4 @@ This is a web prototype, not a full browser port of the native desktop engine. T
 
 ## Desktop commands
 
-The desktop packaging scripts remain separate. Desktop setup requires the native/vendor setup steps and platform-specific dependencies; run `npm run setup` in a desktop development environment.
+The desktop packaging scripts remain separate. Desktop setup requires the native/vendor setup steps and platform-specific dependencies; run `npm run desktop:setup` in a desktop development environment.
