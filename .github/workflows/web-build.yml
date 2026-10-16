@@ -1,0 +1,41 @@
+name: Web build check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm ci
+      - name: Build Google AI Studio web edition
+        run: npm run build
+      - name: Verify production entry point
+        run: test -s dist/index.html
+      - name: Smoke-test production server
+        run: |
+          NODE_ENV=production PORT=3000 npm start > /tmp/genieengine-server.log 2>&1 &
+          echo $! > /tmp/genieengine-server.pid
+          for attempt in $(seq 1 20); do
+            if curl --fail --silent http://127.0.0.1:3000/api/health > /tmp/genieengine-health.json; then
+              break
+            fi
+            sleep 1
+          done
+          cat /tmp/genieengine-health.json
+          node -e "const h = require('/tmp/genieengine-health.json'); if (h.ok !== true || h.app !== 'GenieEngine Web') process.exit(1)"
+          curl --fail --silent http://127.0.0.1:3000/ | grep -q 'GenieEngine Web'
+          kill "$(cat /tmp/genieengine-server.pid)"
